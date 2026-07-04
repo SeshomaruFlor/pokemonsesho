@@ -1,20 +1,6 @@
 {
   "singles": [
     {
-      "id": "mr5t3lpm4rdye6izjac",
-      "name": "Piplup",
-      "set": "Mega Evolution Promos",
-      "num": "042/104",
-      "rarity": "common",
-      "cat": "full-art",
-      "lang": "ENG",
-      "cond": "NM",
-      "stock": 1,
-      "price": 40000,
-      "notes": "",
-      "imgUrl": "https://raw.githubusercontent.com/SeshomaruFlor/pokemonsesho/main/imagenes/piplup_042_promo.jpg"
-    },
-    {
       "id": "mr5tfyfnsbru671pn0a",
       "name": "Tododile",
       "set": "Mega Evolution Promos",
