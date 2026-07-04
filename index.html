@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PokemonSesho — Cartas Singles & Sellado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0b;--bg2:#111114;--bg3:#1a1a1f;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --text:#f0ede8;--muted:#7a7875;
+  --accent:#e8c547;--accent2:#c9a82c;--accent-soft:rgba(232,197,71,0.12);
+  --red:#e84747;--blue:#4f8ef7;--green:#3dba6e;
+  --font-display:'Bebas Neue',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'DM Mono',monospace;
+  --radius:6px;--radius-lg:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.5;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,11,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;}
+.logo-mark{width:34px;height:34px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;}
+.logo-mark::after{content:'';position:absolute;top:50%;left:0;right:0;height:2px;background:rgba(0,0,0,0.35);transform:translateY(-50%);}
+.logo-mark-inner{width:12px;height:12px;background:var(--bg);border-radius:50%;border:2px solid rgba(0,0,0,0.3);position:relative;z-index:1;}
+.logo-text{font-family:var(--font-display);font-size:22px;letter-spacing:0.04em;color:var(--text);}
+.logo-text span{color:var(--accent);}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s;cursor:pointer;}
+.nav-links a:hover{color:var(--text);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.nav-cart{background:var(--accent);color:#000;border:none;border-radius:var(--radius);padding:8px 16px;font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background 0.2s,transform 0.15s;}
+.nav-cart:hover{background:#f0d060;transform:scale(1.02);}
+.cart-count{background:#000;color:var(--accent);border-radius:50%;width:18px;height:18px;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;}
+.nav-admin-btn{background:transparent;border:1px solid var(--border2);color:var(--muted);border-radius:var(--radius);padding:8px 14px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;cursor:pointer;transition:all 0.2s;}
+.nav-admin-btn:hover{color:var(--accent);border-color:var(--accent);}
+
+/* HERO */
+.hero{padding-top:60px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 40%,rgba(232,197,71,0.06) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 20% 70%,rgba(79,142,247,0.04) 0%,transparent 60%);}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);}
+.hero-inner{position:relative;z-index:1;padding:0 2rem;max-width:1200px;margin:0 auto;width:100%;}
+.hero-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:12px;}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--accent);}
+.hero-title{font-family:var(--font-display);font-size:clamp(72px,12vw,160px);line-height:0.9;letter-spacing:0.01em;margin-bottom:2rem;}
+.hero-title .line2{color:var(--accent);}
+.hero-sub{font-size:16px;color:var(--muted);max-width:420px;margin-bottom:2.5rem;font-weight:300;line-height:1.7;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;transition:all 0.2s;border:none;}
+.btn-primary{background:var(--accent);color:#000;}
+.btn-primary:hover{background:#f0d060;transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2);}
+.btn-outline:hover{border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.04);}
+.hero-stats{position:absolute;right:2rem;bottom:4rem;display:flex;flex-direction:column;gap:1.5rem;z-index:1;}
+.stat{text-align:right;}
+.stat-num{font-family:var(--font-display);font-size:40px;line-height:1;color:var(--accent);}
+.stat-label{font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;font-family:var(--font-mono);}
+
+/* SECTIONS */
+section{position:relative;z-index:1;}
+.section-inner{max-width:1200px;margin:0 auto;padding:5rem 2rem;}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;gap:1rem;flex-wrap:wrap;}
+.section-title{font-family:var(--font-display);font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:0.02em;}
+.section-title span{color:var(--accent);}
+.section-eyebrow{font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;}
+
+/* TABS & FILTERS */
+.cat-tabs{display:flex;gap:4px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:4px;width:fit-content;margin-bottom:2rem;flex-wrap:wrap;}
+.cat-tab{padding:8px 20px;border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;background:transparent;border:none;color:var(--muted);font-family:var(--font-body);transition:all 0.2s;}
+.cat-tab.active{background:var(--accent);color:#000;}
+.cat-tab:not(.active):hover{color:var(--text);}
+.filters{display:flex;gap:8px;margin-bottom:2rem;flex-wrap:wrap;align-items:center;}
+.filter-label{font-size:11px;color:var(--muted);font-family:var(--font-mono);letter-spacing:0.1em;text-transform:uppercase;margin-right:4px;}
+.filter-pill{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;background:transparent;border:1px solid var(--border2);color:var(--muted);font-family:var(--font-body);transition:all 0.2s;}
+.filter-pill.active{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+.filter-pill:not(.active):hover{color:var(--text);border-color:rgba(255,255,255,0.25);}
+.search-bar{display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;margin-bottom:2rem;transition:border-color 0.2s;}
+.search-bar:focus-within{border-color:var(--border2);}
+.search-bar input{background:transparent;border:none;outline:none;color:var(--text);font-family:var(--font-body);font-size:14px;width:100%;}
+.search-bar input::placeholder{color:var(--muted);}
+
+/* CARD GRID */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color 0.2s,transform 0.2s;cursor:pointer;position:relative;}
+.card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.card-img{width:100%;aspect-ratio:3/4;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.card-img img{width:100%;height:100%;object-fit:cover;}
+.card-img-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+.card-img-placeholder svg{opacity:0.18;width:48px;height:48px;}
+.card-img-placeholder .poke-name{font-family:var(--font-display);font-size:18px;opacity:0.3;letter-spacing:0.05em;}
+.card-rarity{position:absolute;top:8px;right:8px;padding:3px 8px;border-radius:4px;font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:0.06em;}
+.rarity-common{background:rgba(150,150,150,0.2);color:#aaa;}
+.rarity-uncommon{background:rgba(79,142,247,0.2);color:var(--blue);}
+.rarity-rare{background:rgba(232,197,71,0.2);color:var(--accent);}
+.rarity-ultra{background:rgba(232,71,71,0.2);color:var(--red);}
+.rarity-secret{background:linear-gradient(135deg,rgba(200,100,255,0.25),rgba(100,200,255,0.25));color:#c87fff;}
+.rarity-special{background:rgba(255,150,50,0.2);color:#ff9632;}
+.card-body{padding:12px;}
+.card-name{font-family:var(--font-display);font-size:17px;letter-spacing:0.03em;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-meta{display:flex;flex-direction:column;gap:2px;margin-bottom:10px;}
+.card-meta-row{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-family:var(--font-mono);}
+.lang-badge{padding:1px 5px;border-radius:3px;background:var(--bg3);border:1px solid var(--border);font-size:10px;color:var(--muted);}
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.card-price{font-family:var(--font-display);font-size:22px;color:var(--accent);letter-spacing:0.02em;}
+.card-price-currency{font-size:13px;color:var(--muted);font-family:var(--font-mono);vertical-align:super;font-weight:400;}
+.card-stock{font-size:10px;font-family:var(--font-mono);color:var(--green);letter-spacing:0.06em;}
+.card-stock.low{color:var(--accent);}
+.card-stock.out{color:var(--red);}
+.add-btn{background:var(--accent);color:#000;border:none;border-radius:4px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.2s,transform 0.15s;flex-shrink:0;}
+.add-btn:hover{background:#f0d060;transform:scale(1.1);}
+.add-btn:disabled{background:var(--bg3);color:var(--muted);cursor:not-allowed;transform:none;}
+
+/* SEALED */
+.sealed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.sealed-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color 0.2s,transform 0.2s;}
+.sealed-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.sealed-img{width:100%;height:200px;background:var(--bg3);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);overflow:hidden;position:relative;}
+.sealed-img img{width:100%;height:100%;object-fit:cover;}
+.sealed-img-text{font-family:var(--font-display);font-size:28px;letter-spacing:0.05em;color:rgba(255,255,255,0.06);}
+.sealed-type-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:4px;font-size:11px;font-family:var(--font-mono);letter-spacing:0.08em;font-weight:500;}
+.type-booster{background:rgba(232,197,71,0.15);color:var(--accent);border:1px solid rgba(232,197,71,0.3);}
+.type-etb{background:rgba(79,142,247,0.15);color:var(--blue);border:1px solid rgba(79,142,247,0.3);}
+.type-bundle{background:rgba(61,186,110,0.15);color:var(--green);border:1px solid rgba(61,186,110,0.3);}
+.type-box{background:rgba(232,71,71,0.15);color:var(--red);border:1px solid rgba(232,71,71,0.3);}
+.sealed-body{padding:16px;}
+.sealed-name{font-family:var(--font-display);font-size:20px;margin-bottom:4px;}
+.sealed-set{font-size:12px;color:var(--muted);font-family:var(--font-mono);margin-bottom:12px;}
+.sealed-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.detail-key{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;font-family:var(--font-mono);}
+.detail-val{font-size:13px;font-weight:500;margin-top:1px;}
+.sealed-footer{display:flex;align-items:center;justify-content:space-between;}
+
+/* CART */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+.cart-panel{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:100vw;background:var(--bg);border-left:1px solid var(--border);z-index:201;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;}
+.cart-panel.open{transform:translateX(0);}
+.cart-header{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.cart-title{font-family:var(--font-display);font-size:28px;letter-spacing:0.03em;}
+.close-btn{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--muted);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;font-size:18px;}
+.close-btn:hover{color:var(--text);border-color:var(--border2);}
+.cart-items{flex:1;overflow-y:auto;padding:1rem 1.5rem;}
+.cart-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+.cart-item-thumb{width:44px;height:60px;background:var(--bg3);border-radius:4px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);flex-shrink:0;font-family:var(--font-mono);overflow:hidden;}
+.cart-item-thumb img{width:100%;height:100%;object-fit:cover;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-size:14px;font-weight:500;margin-bottom:2px;}
+.cart-item-meta{font-size:11px;color:var(--muted);font-family:var(--font-mono);}
+.cart-item-qty{display:flex;align-items:center;gap:6px;}
+.qty-btn{width:24px;height:24px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all 0.15s;}
+.qty-btn:hover{border-color:var(--border2);}
+.qty-num{font-size:13px;font-weight:500;min-width:20px;text-align:center;}
+.cart-item-price{font-family:var(--font-display);font-size:18px;color:var(--accent);margin-left:4px;}
+.cart-empty{text-align:center;padding:4rem 2rem;color:var(--muted);}
+.cart-empty-icon{font-size:48px;margin-bottom:1rem;opacity:0.3;}
+.cart-footer{padding:1.5rem;border-top:1px solid var(--border);}
+.cart-summary{margin-bottom:1rem;}
+.summary-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;}
+.summary-total{display:flex;justify-content:space-between;font-family:var(--font-display);font-size:22px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
+.total-label{color:var(--text);}
+.total-amount{color:var(--accent);}
+.checkout-btn{width:100%;background:var(--accent);color:#000;border:none;border-radius:var(--radius);padding:14px;font-family:var(--font-display);font-size:18px;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;}
+.checkout-btn:hover{background:#f0d060;}
+.checkout-note{margin-top:10px;font-size:11px;color:var(--muted);text-align:center;font-family:var(--font-mono);line-height:1.5;}
+
+/* MODALS */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:300;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);}
+.modal-backdrop.open{display:flex;}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);width:100%;max-width:600px;max-height:90vh;overflow-y:auto;}
+.modal-lg{max-width:780px;}
+.modal-header{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:1;}
+.modal-title{font-family:var(--font-display);font-size:26px;}
+.modal-body{padding:1.5rem;}
+.form-group{margin-bottom:1.25rem;}
+.form-label{display:block;font-size:11px;font-family:var(--font-mono);color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body);font-size:14px;padding:10px 12px;outline:none;transition:border-color 0.2s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);}
+.form-select option{background:var(--bg2);}
+.form-textarea{resize:vertical;min-height:80px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+
+/* IMAGE UPLOAD */
+.img-upload-area{border:2px dashed var(--border2);border-radius:var(--radius-lg);padding:2rem;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;background:var(--bg3);}
+.img-upload-area:hover{border-color:var(--accent);background:var(--accent-soft);}
+.img-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.img-upload-icon{font-size:32px;margin-bottom:0.5rem;}
+.img-upload-text{font-size:13px;color:var(--muted);}
+.img-upload-text strong{color:var(--accent);}
+.img-preview{width:100%;max-height:200px;object-fit:contain;border-radius:var(--radius);margin-top:1rem;display:none;}
+.img-preview.show{display:block;}
+.img-url-input{margin-top:0.75rem;}
+.or-divider{display:flex;align-items:center;gap:12px;margin:1rem 0;color:var(--muted);font-size:12px;font-family:var(--font-mono);}
+.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* PAYMENT INFO */
+.payment-info{background:var(--accent-soft);border:1px solid rgba(232,197,71,0.25);border-radius:var(--radius);padding:14px;margin-bottom:1.25rem;}
+.payment-info-title{font-size:13px;font-weight:500;margin-bottom:6px;display:flex;align-items:center;gap:6px;color:var(--accent);font-family:var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;}
+.payment-info p{font-size:13px;color:var(--muted);line-height:1.5;}
+.order-summary-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:1.25rem;}
+
+/* CARD DETAIL */
+.card-modal-content{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.card-detail-img{background:var(--bg3);border-radius:var(--radius);aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);overflow:hidden;}
+.card-detail-img img{width:100%;height:100%;object-fit:cover;}
+.spec-table{width:100%;border-collapse:collapse;}
+.spec-table tr{border-bottom:1px solid var(--border);}
+.spec-table tr:last-child{border-bottom:none;}
+.spec-table td{padding:8px 0;font-size:13px;}
+.spec-table td:first-child{color:var(--muted);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.08em;width:45%;}
+
+/* ADMIN PANEL */
+.admin-section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem;}
+.admin-section-title{font-family:var(--font-display);font-size:20px;margin-bottom:1rem;color:var(--accent);}
+.admin-items-list{display:flex;flex-direction:column;gap:8px;max-height:300px;overflow-y:auto;margin-top:1rem;}
+.admin-item{display:flex;align-items:center;gap:12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;}
+.admin-item-thumb{width:36px;height:48px;background:var(--bg2);border-radius:3px;overflow:hidden;flex-shrink:0;}
+.admin-item-thumb img{width:100%;height:100%;object-fit:cover;}
+.admin-item-info{flex:1;}
+.admin-item-name{font-size:13px;font-weight:500;}
+.admin-item-meta{font-size:11px;color:var(--muted);font-family:var(--font-mono);}
+.admin-item-actions{display:flex;gap:6px;}
+.icon-btn{width:28px;height:28px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;font-size:13px;}
+.icon-btn:hover{color:var(--text);border-color:var(--border2);}
+.icon-btn.del:hover{color:var(--red);border-color:var(--red);}
+
+/* TOKEN SETUP */
+.token-screen{text-align:center;padding:2rem 1rem;}
+.token-icon{font-size:48px;margin-bottom:1rem;}
+.token-screen h2{font-family:var(--font-display);font-size:32px;margin-bottom:0.75rem;}
+.token-screen p{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:1.25rem;max-width:420px;margin-left:auto;margin-right:auto;}
+.token-steps{text-align:left;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:13px;line-height:2;}
+.token-steps ol{padding-left:1.25rem;color:var(--muted);}
+.token-steps ol li strong{color:var(--text);}
+.token-input-row{display:flex;gap:8px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:12px 20px;font-size:13px;z-index:999;transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.success{border-color:rgba(61,186,110,0.4);color:var(--green);}
+.toast.error{border-color:rgba(232,71,71,0.4);color:var(--red);}
+
+/* LOADING */
+.loading-bar{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:999;transition:width 0.3s;width:0%;}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-top:3rem;}
+.step{background:var(--bg);padding:2rem 1.5rem;}
+.step-num{font-family:var(--font-display);font-size:60px;line-height:1;color:rgba(232,197,71,0.12);margin-bottom:0.75rem;}
+.step-title{font-size:16px;font-weight:500;margin-bottom:0.5rem;}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* SUCCESS */
+.success-screen{text-align:center;padding:2rem;}
+.success-icon{width:64px;height:64px;background:rgba(61,186,110,0.15);border:1px solid rgba(61,186,110,0.4);border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--green);}
+.success-screen h2{font-family:var(--font-display);font-size:32px;margin-bottom:0.75rem;}
+.success-screen p{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:0.5rem;}
+
+/* LOGIN */
+.login-screen{text-align:center;padding:2.5rem 1.5rem;}
+.login-screen h2{font-family:var(--font-display);font-size:28px;margin-bottom:1.5rem;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:3rem 2rem;position:relative;z-index:1;}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+footer p{font-size:12px;color:var(--muted);font-family:var(--font-mono);}
+
+/* SUBMIT BTN */
+.submit-order-btn{width:100%;background:var(--accent);color:#000;border:none;border-radius:var(--radius);padding:14px;font-family:var(--font-display);font-size:20px;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;}
+.submit-order-btn:hover{background:#f0d060;}
+.submit-order-btn:disabled{background:var(--bg3);color:var(--muted);cursor:not-allowed;}
+
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px;}
+
+@media(max-width:768px){
+  .hero-stats{display:none;}
+  .nav-links{display:none;}
+  .form-row,.form-row-3{grid-template-columns:1fr;}
+  .card-modal-content{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="loading-bar" id="loadingBar"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="scrollTo(0,0)">
+    <div class="logo-mark"><div class="logo-mark-inner"></div></div>
+    <span class="logo-text">POKEMON<span>SESHO</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="document.getElementById('singles').scrollIntoView({behavior:'smooth'})">Singles</a></li>
+    <li><a onclick="document.getElementById('sellado').scrollIntoView({behavior:'smooth'})">Sellado</a></li>
+    <li><a onclick="document.getElementById('como-comprar').scrollIntoView({behavior:'smooth'})">Cómo comprar</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-admin-btn" onclick="openAdmin()">⚙ ADMIN</button>
+    <button class="nav-cart" onclick="toggleCart()">
+      🛒 Carrito
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Buenos Aires · Envíos a todo el país</p>
+    <h1 class="hero-title">POKEMON<br><span class="line2">SESHO</span></h1>
+    <p class="hero-sub">Singles, sellado y colección. Cartas en japonés, chino e inglés. Pagá por transferencia y recibí donde quieras.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="document.getElementById('singles').scrollIntoView({behavior:'smooth'})">Ver singles →</button>
+      <button class="btn btn-outline" onclick="document.getElementById('sellado').scrollIntoView({behavior:'smooth'})">Ver sellado</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num" id="totalCards">0</div><div class="stat-label">En stock</div></div>
+    <div class="stat"><div class="stat-num" id="totalSets">0</div><div class="stat-label">Colecciones</div></div>
+  </div>
+</section>
+
+<!-- SINGLES -->
+<section id="singles">
+  <div class="section-inner">
+    <div class="section-header">
+      <div><p class="section-eyebrow">Cartas individuales</p><h2 class="section-title">SINGLES</h2></div>
+    </div>
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-tab active" onclick="setTab('all',this)">Todas</button>
+      <button class="cat-tab" onclick="setTab('ex',this)">Pokémon ex</button>
+      <button class="cat-tab" onclick="setTab('full-art',this)">Full Art</button>
+      <button class="cat-tab" onclick="setTab('tera',this)">Tera</button>
+      <button class="cat-tab" onclick="setTab('trainer',this)">Trainer</button>
+    </div>
+    <div class="search-bar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" placeholder="Buscar carta, colección, Pokémon..." id="searchInput" oninput="renderSingles()">
+    </div>
+    <div class="filters">
+      <span class="filter-label">Rareza:</span>
+      <button class="filter-pill active" onclick="setRarity('all',this)">Todas</button>
+      <button class="filter-pill" onclick="setRarity('common',this)">Common</button>
+      <button class="filter-pill" onclick="setRarity('uncommon',this)">Uncommon</button>
+      <button class="filter-pill" onclick="setRarity('rare',this)">Rare</button>
+      <button class="filter-pill" onclick="setRarity('ultra',this)">Ultra Rare</button>
+      <button class="filter-pill" onclick="setRarity('secret',this)">Secret Rare</button>
+      <button class="filter-pill" onclick="setRarity('special',this)">Special Ill.</button>
+    </div>
+    <div class="filters">
+      <span class="filter-label">Idioma:</span>
+      <button class="filter-pill active" onclick="setLang('all',this)">Todos</button>
+      <button class="filter-pill" onclick="setLang('JPN',this)">Japonés</button>
+      <button class="filter-pill" onclick="setLang('ENG',this)">Inglés</button>
+      <button class="filter-pill" onclick="setLang('CHN',this)">Chino</button>
+      <button class="filter-pill" onclick="setLang('SPA',this)">Español</button>
+    </div>
+    <div class="card-grid" id="singlesGrid"></div>
+    <p style="text-align:center;color:var(--muted);font-family:var(--font-mono);font-size:12px;margin-top:1.5rem;display:none" id="noResults">No se encontraron cartas.</p>
+    <p style="text-align:center;color:var(--muted);font-family:var(--font-mono);font-size:12px;margin-top:1.5rem;display:none" id="loadingMsg">Cargando catálogo...</p>
+  </div>
+</section>
+
+<!-- SELLADO -->
+<section id="sellado" style="border-top:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-header">
+      <div><p class="section-eyebrow">Producto sellado</p><h2 class="section-title">SELLADO</h2></div>
+    </div>
+    <div class="sealed-grid" id="sealedGrid"></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="como-comprar" style="border-top:1px solid var(--border);background:var(--bg2);">
+  <div class="section-inner">
+    <div><p class="section-eyebrow">Proceso de compra</p><h2 class="section-title">¿CÓMO <span>COMPRAR?</span></h2></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><div class="step-title">Elegí tus cartas</div><div class="step-desc">Explorá el catálogo, filtrá por rareza, idioma o colección. Agregá lo que querés al carrito.</div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-title">Completá el pedido</div><div class="step-desc">Ingresá tus datos y elegí entre retiro en persona o envío a domicilio.</div></div>
+      <div class="step"><div class="step-num">03</div><div class="step-title">Pagá por transferencia</div><div class="step-desc">Te enviamos el alias/CBU. El pago 100% por transferencia reserva tus cartas al instante.</div></div>
+      <div class="step"><div class="step-num">04</div><div class="step-title">Recibís tu pedido</div><div class="step-desc">Coordinamos retiro o enviamos por correo o moto. Te mandamos el tracking por WhatsApp.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="nav-logo">
+      <div class="logo-mark"><div class="logo-mark-inner"></div></div>
+      <span class="logo-text">POKEMON<span>SESHO</span></span>
+    </div>
+    <p>© 2025 PokemonSesho · Buenos Aires, Argentina</p>
+    <p>Instagram · WhatsApp</p>
+  </div>
+</footer>
+
+<!-- CART PANEL -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <span class="cart-title">CARRITO</span>
+    <button class="close-btn" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-summary">
+      <div class="summary-row"><span>Subtotal</span><span id="cartSubtotal">$0</span></div>
+      <div class="summary-row"><span>Envío</span><span>A coordinar</span></div>
+      <div class="summary-total"><span class="total-label">TOTAL</span><span class="total-amount" id="cartTotal">$0</span></div>
+    </div>
+    <button class="checkout-btn" onclick="openCheckout()">HACER PEDIDO →</button>
+    <p class="checkout-note">Pago 100% por transferencia · CBU/alias al confirmar</p>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="modal-backdrop" id="orderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">TU PEDIDO</span>
+      <button class="close-btn" onclick="closeModal('orderModal')">✕</button>
+    </div>
+    <div class="modal-body" id="orderModalBody"></div>
+  </div>
+</div>
+
+<!-- CARD DETAIL MODAL -->
+<div class="modal-backdrop" id="cardModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <span class="modal-title" id="cardModalTitle">—</span>
+      <button class="close-btn" onclick="closeModal('cardModal')">✕</button>
+    </div>
+    <div class="modal-body" id="cardModalBody"></div>
+  </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="modal-backdrop" id="adminModal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <span class="modal-title">⚙ ADMIN — POKEMONSESHO</span>
+      <button class="close-btn" onclick="closeModal('adminModal')">✕</button>
+    </div>
+    <div class="modal-body" id="adminModalBody"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════
+const GITHUB_USER = 'SeshomaruFlor';
+const GITHUB_REPO = 'pokemonsesho';
+const BRANCH = 'main';
+const INVENTORY_PATH = 'data/inventario.json';
+const IMAGES_PATH = 'imagenes';
+const ADMIN_PASSWORD = 'sesho2025'; // ← CAMBIÁ ESTA CONTRASEÑA
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let cart = [];
+let singles = [];
+let sealed = [];
+let activeTab = 'all';
+let activeRarity = 'all';
+let activeLang = 'all';
+let githubToken = localStorage.getItem('ps_gh_token') || '';
+let adminUnlocked = false;
+let editingItem = null;
+let uploadedImageData = null;
+let uploadedImageName = null;
+
+// ═══════════════════════════════════════════════
+// GITHUB API
+// ═══════════════════════════════════════════════
+function ghHeaders() {
+  return {
+    'Authorization': `token ${githubToken}`,
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.github.v3+json'
+  };
+}
+
+async function ghGetFile(path) {
+  const r = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}?ref=${BRANCH}`, {headers: ghHeaders()});
+  if (!r.ok) return null;
+  return r.json();
+}
+
+async function ghPutFile(path, content, message, sha) {
+  const body = {
+    message,
+    content: btoa(unescape(encodeURIComponent(content))),
+    branch: BRANCH
+  };
+  if (sha) body.sha = sha;
+  const r = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}`, {
+    method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)
+  });
+  return r.ok ? r.json() : null;
+}
+
+async function ghPutBinary(path, base64data, message, sha) {
+  const body = { message, content: base64data, branch: BRANCH };
+  if (sha) body.sha = sha;
+  const r = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}`, {
+    method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)
+  });
+  return r.ok ? r.json() : null;
+}
+
+// ═══════════════════════════════════════════════
+// INVENTORY LOAD / SAVE
+// ═══════════════════════════════════════════════
+async function loadInventory() {
+  showLoading(true);
+  try {
+    // Try GitHub first
+    if (githubToken) {
+      const file = await ghGetFile(INVENTORY_PATH);
+      if (file) {
+        const data = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,'')))));
+        singles = data.singles || [];
+        sealed = data.sealed || [];
+        renderSingles();
+        renderSealed();
+        updateStats();
+        showLoading(false);
+        return;
+      }
+    }
+    // Fallback: try raw public URL
+    const r = await fetch(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}/${INVENTORY_PATH}?t=${Date.now()}`);
+    if (r.ok) {
+      const data = await r.json();
+      singles = data.singles || [];
+      sealed = data.sealed || [];
+    } else {
+      singles = [];
+      sealed = [];
+    }
+  } catch(e) {
+    singles = [];
+    sealed = [];
+  }
+  renderSingles();
+  renderSealed();
+  updateStats();
+  showLoading(false);
+}
+
+async function saveInventory(msg) {
+  if (!githubToken) { showToast('Configurá el token de GitHub primero', 'error'); return false; }
+  showLoading(true);
+  const data = JSON.stringify({ singles, sealed }, null, 2);
+  const file = await ghGetFile(INVENTORY_PATH);
+  const sha = file ? file.sha : undefined;
+  const res = await ghPutFile(INVENTORY_PATH, data, msg || 'Actualizar inventario', sha);
+  showLoading(false);
+  if (res) { showToast('✓ Guardado en GitHub', 'success'); return true; }
+  else { showToast('Error al guardar. Verificá el token.', 'error'); return false; }
+}
+
+async function uploadImage(base64, filename) {
+  if (!githubToken) return null;
+  const path = `${IMAGES_PATH}/${filename}`;
+  const existing = await ghGetFile(path);
+  const sha = existing ? existing.sha : undefined;
+  const res = await ghPutBinary(path, base64, `Subir imagen: ${filename}`, sha);
+  if (res) {
+    return `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}/${path}`;
+  }
+  return null;
+}
+
+// ═══════════════════════════════════════════════
+// RENDER SINGLES
+// ═══════════════════════════════════════════════
+const rarityLabel = {common:'Common',uncommon:'Uncommon',rare:'Rare',ultra:'Ultra Rare',secret:'Secret Rare',special:'Special Ill.'};
+const rarityClass = {common:'rarity-common',uncommon:'rarity-uncommon',rare:'rarity-rare',ultra:'rarity-ultra',secret:'rarity-secret',special:'rarity-special'};
+
+function stockInfo(s) {
+  if (s === 0) return {text:'SIN STOCK',cls:'out'};
+  if (s <= 2) return {text:`ÚLTIMO${s>1?'S':''} ${s}`,cls:'low'};
+  return {text:`${s} EN STOCK`,cls:''};
+}
+
+function imgOrPlaceholder(c, size=48) {
+  if (c.imgUrl) return `<img src="${c.imgUrl}" alt="${c.name}" loading="lazy" onerror="this.style.display='none'">`;
+  return `<div class="card-img-placeholder">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="width:${size}px;height:${size}px;opacity:0.18"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+    <span class="poke-name" style="font-size:${size*0.35}px">${(c.name||'').split(' ')[0].toUpperCase()}</span>
+  </div>`;
+}
+
+function renderSingles() {
+  const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  const filtered = singles.filter(c => {
+    const tabOk = activeTab === 'all' || c.cat === activeTab;
+    const rarOk = activeRarity === 'all' || c.rarity === activeRarity;
+    const langOk = activeLang === 'all' || c.lang === activeLang;
+    const qOk = !q || (c.name||'').toLowerCase().includes(q) || (c.set||'').toLowerCase().includes(q);
+    return tabOk && rarOk && langOk && qOk;
+  });
+  const grid = document.getElementById('singlesGrid');
+  const noRes = document.getElementById('noResults');
+  if (!grid) return;
+  grid.innerHTML = filtered.map(c => {
+    const sk = stockInfo(c.stock);
+    return `<div class="card" onclick="openCardDetail('${c.id}')">
+      <div class="card-img">${imgOrPlaceholder(c)}
+        <span class="card-rarity ${rarityClass[c.rarity]}">${rarityLabel[c.rarity]}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${c.name}</div>
+        <div class="card-meta">
+          <div class="card-meta-row"><span>${c.set}</span><span class="lang-badge">${c.lang}</span></div>
+          <div class="card-meta-row"><span>#${c.num}</span><span>${c.cond}</span></div>
+        </div>
+        <div class="card-footer">
+          <div>
+            <span class="card-price-currency">$</span><span class="card-price">${(c.price||0).toLocaleString('es-AR')}</span>
+            <div class="card-stock ${sk.cls}">${sk.text}</div>
+          </div>
+          <button class="add-btn" onclick="event.stopPropagation();addToCart('${c.id}')" ${c.stock===0?'disabled':''} title="Agregar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  noRes.style.display = filtered.length ? 'none' : 'block';
+  updateStats();
+}
+
+function renderSealed() {
+  const typeLabel = {booster:'Booster Pack',etb:'Elite Trainer Box',bundle:'Bundle',box:'Booster Box'};
+  const typeClass = {booster:'type-booster',etb:'type-etb',bundle:'type-bundle',box:'type-box'};
+  const grid = document.getElementById('sealedGrid');
+  if (!grid) return;
+  grid.innerHTML = sealed.map(s => {
+    const sk = stockInfo(s.stock);
+    return `<div class="sealed-card">
+      <div class="sealed-img">
+        ${s.imgUrl ? `<img src="${s.imgUrl}" alt="${s.name}" loading="lazy">` : `<span class="sealed-img-text">${(s.name||'').split(' ').slice(0,2).join(' ').toUpperCase()}</span>`}
+        <span class="sealed-type-badge ${typeClass[s.type]}">${typeLabel[s.type]||s.type}</span>
+      </div>
+      <div class="sealed-body">
+        <div class="sealed-name">${s.name}</div>
+        <div class="sealed-set">${s.set} · ${s.lang}</div>
+        <div class="sealed-details">
+          <div><div class="detail-key">Contenido</div><div class="detail-val">${s.desc||'—'}</div></div>
+          <div><div class="detail-key">Stock</div><div class="detail-val card-stock ${sk.cls}">${sk.text}</div></div>
+        </div>
+        <div class="sealed-footer">
+          <div><span class="card-price-currency">$</span><span class="card-price">${(s.price||0).toLocaleString('es-AR')}</span></div>
+          <button class="add-btn" onclick="addSealedToCart('${s.id}')" ${s.stock===0?'disabled':''} style="width:auto;padding:0 14px;border-radius:4px;gap:6px;font-size:13px;font-family:var(--font-body)">+ Agregar</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateStats() {
+  const inStock = singles.filter(c => c.stock > 0).length;
+  const sets = [...new Set(singles.map(c => c.set).filter(Boolean))].length;
+  animNum('totalCards', inStock);
+  animNum('totalSets', sets);
+}
+
+function animNum(id, target) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let cur = 0, step = Math.max(1, Math.ceil(target/30));
+  const t = setInterval(() => { cur = Math.min(cur+step, target); el.textContent = cur; if(cur>=target) clearInterval(t); }, 30);
+}
+
+// ═══════════════════════════════════════════════
+// FILTERS
+// ═══════════════════════════════════════════════
+function setTab(t, btn) {
+  activeTab = t;
+  document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSingles();
+}
+function setRarity(r, btn) {
+  activeRarity = r;
+  btn.closest('.filters').querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  renderSingles();
+}
+function setLang(l, btn) {
+  activeLang = l;
+  btn.closest('.filters').querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  renderSingles();
+}
+
+// ═══════════════════════════════════════════════
+// CART
+// ═══════════════════════════════════════════════
+function addToCart(id) {
+  const c = singles.find(x => x.id === id);
+  if (!c || c.stock === 0) return;
+  const ex = cart.find(i => i.id === id && i.type === 'single');
+  if (ex) ex.qty = Math.min(ex.qty+1, c.stock);
+  else cart.push({id, type:'single', name:c.name, set:c.set, lang:c.lang, price:c.price, qty:1, imgUrl:c.imgUrl||''});
+  renderCart();
+  flashCart();
+}
+function addSealedToCart(id) {
+  const s = sealed.find(x => x.id === id);
+  if (!s || s.stock === 0) return;
+  const ex = cart.find(i => i.id === id && i.type === 'sealed');
+  if (ex) ex.qty = Math.min(ex.qty+1, s.stock);
+  else cart.push({id, type:'sealed', name:s.name, set:s.set, lang:s.lang, price:s.price, qty:1, imgUrl:s.imgUrl||''});
+  renderCart();
+  flashCart();
+}
+function flashCart() {
+  const btn = document.querySelector('.nav-cart');
+  btn.style.background='#f0d060'; setTimeout(()=>btn.style.background='',400);
+}
+function changeQty(idx, d) {
+  cart[idx].qty += d;
+  if (cart[idx].qty <= 0) cart.splice(idx,1);
+  renderCart();
+}
+function renderCart() {
+  const el = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  const count = cart.reduce((a,i)=>a+i.qty,0);
+  document.getElementById('cartCount').textContent = count;
+  if (!cart.length) {
+    el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">📦</div><p>Tu carrito está vacío.</p></div>`;
+    footer.style.display='none'; return;
+  }
+  footer.style.display='block';
+  const total = cart.reduce((a,i)=>a+i.price*i.qty,0);
+  document.getElementById('cartSubtotal').textContent = '$'+total.toLocaleString('es-AR');
+  document.getElementById('cartTotal').textContent = '$'+total.toLocaleString('es-AR');
+  el.innerHTML = cart.map((item,idx) => `
+    <div class="cart-item">
+      <div class="cart-item-thumb">${item.imgUrl?`<img src="${item.imgUrl}" style="width:100%;height:100%;object-fit:cover;">`:`<span>${item.lang}</span>`}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-meta">${item.set}</div>
+      </div>
+      <div class="cart-item-qty">
+        <button class="qty-btn" onclick="changeQty(${idx},-1)">−</button>
+        <span class="qty-num">${item.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
+      </div>
+      <span class="cart-item-price">$${(item.price*item.qty).toLocaleString('es-AR')}</span>
+    </div>`).join('');
+}
+function toggleCart() {
+  document.getElementById('cartPanel').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════
+// CHECKOUT
+// ═══════════════════════════════════════════════
+function openCheckout() {
+  const total = cart.reduce((a,i)=>a+i.price*i.qty,0);
+  const items = cart.map(i=>`<div class="summary-row"><span>${i.qty}x ${i.name}</span><span>$${(i.price*i.qty).toLocaleString('es-AR')}</span></div>`).join('');
+  document.getElementById('orderModalBody').innerHTML = `
+    <div class="order-summary-box">${items}
+      <div class="summary-total"><span class="total-label">TOTAL</span><span class="total-amount">$${total.toLocaleString('es-AR')}</span></div>
+    </div>
+    <div class="payment-info">
+      <div class="payment-info-title">💳 Pago 100% por transferencia</div>
+      <p>Una vez confirmado el pedido te enviamos el CBU/alias para transferir el total. Coordinamos entrega cuando acreditamos el pago.</p>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Nombre completo</label><input class="form-input" id="oName" placeholder="Tu nombre"></div>
+      <div class="form-group"><label class="form-label">WhatsApp</label><input class="form-input" id="oPhone" placeholder="+54 11..."></div>
+    </div>
+    <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="oEmail" type="email" placeholder="tucorreo@email.com"></div>
+    <div class="form-group"><label class="form-label">Entrega</label>
+      <select class="form-select" id="oShip" onchange="document.getElementById('addrG').style.display=this.value==='envio'?'block':'none'">
+        <option value="retiro">Retiro en persona (Buenos Aires)</option>
+        <option value="envio">Envío a domicilio</option>
+      </select>
+    </div>
+    <div class="form-group" id="addrG" style="display:none"><label class="form-label">Dirección de envío</label><input class="form-input" id="oAddress" placeholder="Calle, número, ciudad, provincia"></div>
+    <div class="form-group"><label class="form-label">Notas (opcional)</label><textarea class="form-textarea" id="oNotes" placeholder="¿Alguna consulta?"></textarea></div>
+    <button class="submit-order-btn" onclick="submitOrder()">CONFIRMAR PEDIDO →</button>`;
+  document.getElementById('orderModal').classList.add('open');
+}
+
+function submitOrder() {
+  const name = document.getElementById('oName').value.trim();
+  const phone = document.getElementById('oPhone').value.trim();
+  const email = document.getElementById('oEmail').value.trim();
+  if (!name||!phone||!email){showToast('Completá nombre, WhatsApp y email','error');return;}
+  const total = cart.reduce((a,i)=>a+i.price*i.qty,0);
+  document.getElementById('orderModalBody').innerHTML = `
+    <div class="success-screen">
+      <div class="success-icon">✓</div>
+      <h2>¡PEDIDO RECIBIDO!</h2>
+      <p>Gracias <strong>${name}</strong>, tu pedido fue registrado.</p>
+      <p>En las próximas horas te enviamos el <strong>CBU/alias</strong> para transferir <strong>$${total.toLocaleString('es-AR')}</strong>.</p>
+      <p style="margin-top:1rem">Te contactamos por WhatsApp al <strong>${phone}</strong>.</p>
+      <button class="btn btn-primary" style="margin-top:1.5rem;width:100%;justify-content:center;" onclick="closeModal('orderModal');cart=[];renderCart();">CERRAR</button>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════
+// CARD DETAIL
+// ═══════════════════════════════════════════════
+function openCardDetail(id) {
+  const c = singles.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('cardModalTitle').textContent = c.name.toUpperCase();
+  const sk = stockInfo(c.stock);
+  const langMap = {JPN:'Japonés',ENG:'Inglés',CHN:'Chino',SPA:'Español'};
+  document.getElementById('cardModalBody').innerHTML = `
+    <div class="card-modal-content">
+      <div class="card-detail-img">${c.imgUrl?`<img src="${c.imgUrl}" alt="${c.name}">`:`<div class="card-img-placeholder" style="height:300px;">${imgOrPlaceholder(c,64)}</div>`}</div>
+      <div>
+        <table class="spec-table">
+          <tr><td>Colección</td><td>${c.set}</td></tr>
+          <tr><td>Número</td><td>${c.num}</td></tr>
+          <tr><td>Rareza</td><td><span class="card-rarity ${rarityClass[c.rarity]}" style="position:static">${rarityLabel[c.rarity]}</span></td></tr>
+          <tr><td>Idioma</td><td>${langMap[c.lang]||c.lang}</td></tr>
+          <tr><td>Condición</td><td>${c.cond}</td></tr>
+          <tr><td>Stock</td><td><span class="card-stock ${sk.cls}">${sk.text}</span></td></tr>
+          ${c.notes?`<tr><td>Notas</td><td>${c.notes}</td></tr>`:''}
+        </table>
+        <div style="margin-top:1.5rem">
+          <span class="card-price-currency">$</span>
+          <span class="card-price" style="font-size:36px">${(c.price||0).toLocaleString('es-AR')}</span>
+        </div>
+        <button class="btn btn-primary" style="margin-top:1rem;width:100%;justify-content:center;" onclick="addToCart('${c.id}');closeModal('cardModal')" ${c.stock===0?'disabled':''}>
+          ${c.stock===0?'SIN STOCK':'+ AGREGAR AL CARRITO'}
+        </button>
+      </div>
+    </div>`;
+  document.getElementById('cardModal').classList.add('open');
+}
+
+// ═══════════════════════════════════════════════
+// ADMIN
+// ═══════════════════════════════════════════════
+function openAdmin() {
+  if (!adminUnlocked) {
+    renderAdminLogin();
+  } else {
+    renderAdminPanel();
+  }
+  document.getElementById('adminModal').classList.add('open');
+}
+
+function renderAdminLogin() {
+  document.getElementById('adminModalBody').innerHTML = `
+    <div class="login-screen">
+      <div style="font-size:48px;margin-bottom:1rem">🔐</div>
+      <h2>ACCESO ADMIN</h2>
+      <div class="form-group" style="max-width:300px;margin:0 auto 1rem">
+        <label class="form-label">Contraseña</label>
+        <input class="form-input" type="password" id="adminPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkAdminPass()">
+      </div>
+      <button class="btn btn-primary" onclick="checkAdminPass()">INGRESAR →</button>
+    </div>`;
+  setTimeout(()=>document.getElementById('adminPass')?.focus(),100);
+}
+
+function checkAdminPass() {
+  const p = document.getElementById('adminPass').value;
+  if (p === ADMIN_PASSWORD) {
+    adminUnlocked = true;
+    renderAdminPanel();
+  } else {
+    showToast('Contraseña incorrecta','error');
+  }
+}
+
+function renderAdminPanel() {
+  const hasToken = !!githubToken;
+  document.getElementById('adminModalBody').innerHTML = `
+
+    <!-- TOKEN CONFIG -->
+    <div class="admin-section">
+      <div class="admin-section-title">🔑 Token de GitHub</div>
+      ${hasToken
+        ? `<p style="font-size:13px;color:var(--green);margin-bottom:0.75rem">✓ Token configurado — el inventario se guarda automáticamente en GitHub.</p>
+           <div style="display:flex;gap:8px;align-items:center">
+             <span style="font-family:var(--font-mono);font-size:12px;color:var(--muted)">${githubToken.slice(0,8)}••••••••••••••••</span>
+             <button class="icon-btn del" onclick="clearToken()" title="Eliminar token">✕</button>
+           </div>`
+        : `<p style="font-size:13px;color:var(--muted);margin-bottom:0.75rem">Sin token no podés guardar cambios. Generá uno en <strong>GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)</strong> con permiso <strong>repo</strong>.</p>
+           <div class="token-input-row">
+             <input class="form-input" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx" style="flex:1">
+             <button class="btn btn-primary" onclick="saveToken()">GUARDAR</button>
+           </div>`}
+    </div>
+
+    <!-- AGREGAR PRODUCTO -->
+    <div class="admin-section">
+      <div class="admin-section-title">➕ Agregar / Editar producto</div>
+      <div class="form-group">
+        <label class="form-label">Tipo</label>
+        <select class="form-select" id="adminType" onchange="toggleAdminFields()">
+          <option value="single">Single (carta individual)</option>
+          <option value="sealed">Sellado</option>
+        </select>
+      </div>
+
+      <!-- SINGLE FIELDS -->
+      <div id="singleFields">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Nombre de la carta *</label><input class="form-input" id="aName" placeholder="Charizard ex"></div>
+          <div class="form-group"><label class="form-label">Colección *</label><input class="form-input" id="aSet" placeholder="Obsidian Flames"></div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group"><label class="form-label">Número</label><input class="form-input" id="aNum" placeholder="215/197"></div>
+          <div class="form-group"><label class="form-label">Rareza</label>
+            <select class="form-select" id="aRarity">
+              <option value="common">Common</option><option value="uncommon">Uncommon</option>
+              <option value="rare">Rare</option><option value="ultra">Ultra Rare</option>
+              <option value="secret">Secret Rare</option><option value="special">Special Ill.</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Categoría</label>
+            <select class="form-select" id="aCat">
+              <option value="all">General</option><option value="ex">Pokémon ex</option>
+              <option value="full-art">Full Art</option><option value="tera">Tera</option><option value="trainer">Trainer</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group"><label class="form-label">Idioma</label>
+            <select class="form-select" id="aLang">
+              <option value="JPN">Japonés</option><option value="ENG">Inglés</option>
+              <option value="CHN">Chino</option><option value="SPA">Español</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Condición</label>
+            <select class="form-select" id="aCond">
+              <option value="NM">Near Mint (NM)</option><option value="LP">Light Played (LP)</option>
+              <option value="MP">Mod. Played (MP)</option><option value="HP">Heavy Played (HP)</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Stock</label><input class="form-input" id="aStock" type="number" placeholder="1" min="0" value="1"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Precio (ARS $) *</label><input class="form-input" id="aPrice" type="number" placeholder="15000"></div>
+          <div class="form-group"><label class="form-label">Notas</label><input class="form-input" id="aNotes" placeholder="Foil, holo, etc."></div>
+        </div>
+      </div>
+
+      <!-- SEALED FIELDS -->
+      <div id="sealedFields" style="display:none">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Nombre del producto *</label><input class="form-input" id="sName" placeholder="Booster Box Stellar Crown"></div>
+          <div class="form-group"><label class="form-label">Colección *</label><input class="form-input" id="sSet" placeholder="Stellar Crown"></div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group"><label class="form-label">Tipo</label>
+            <select class="form-select" id="sType">
+              <option value="booster">Booster Pack</option><option value="etb">Elite Trainer Box</option>
+              <option value="bundle">Bundle</option><option value="box">Booster Box</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Idioma</label>
+            <select class="form-select" id="sLang">
+              <option value="JPN">Japonés</option><option value="ENG">Inglés</option>
+              <option value="CHN">Chino</option><option value="SPA">Español</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Stock</label><input class="form-input" id="sStock" type="number" placeholder="3" min="0" value="1"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Precio (ARS $) *</label><input class="form-input" id="sPrice" type="number" placeholder="80000"></div>
+          <div class="form-group"><label class="form-label">Contenido</label><input class="form-input" id="sDesc" placeholder="36 packs · 10 cartas"></div>
+        </div>
+      </div>
+
+      <!-- IMAGE UPLOAD (shared) -->
+      <div class="form-group">
+        <label class="form-label">Imagen de la carta / producto</label>
+        <div class="img-upload-area" id="uploadArea">
+          <input type="file" accept="image/*" onchange="handleImageFile(this)">
+          <div class="img-upload-icon">📷</div>
+          <div class="img-upload-text">Arrastrá o hacé click para subir una foto<br><strong>JPG, PNG, WEBP</strong> · máx 5MB</div>
+          <img class="img-preview" id="imgPreview" src="" alt="preview">
+        </div>
+        <div class="or-divider">o pegá una URL</div>
+        <input class="form-input img-url-input" id="aImgUrl" placeholder="https://images.pokemontcg.io/..." oninput="previewFromUrl(this.value)">
+      </div>
+
+      <div style="display:flex;gap:8px;">
+        <button class="submit-order-btn" id="addProductBtn" onclick="addProduct()">AGREGAR AL CATÁLOGO</button>
+        <button class="btn btn-outline" id="cancelEditBtn" style="display:none" onclick="cancelEdit()">CANCELAR</button>
+      </div>
+    </div>
+
+    <!-- SINGLES LIST -->
+    <div class="admin-section">
+      <div class="admin-section-title">📋 Singles en catálogo (${singles.length})</div>
+      <div class="admin-items-list" id="adminSinglesList">
+        ${singles.map(c=>`
+          <div class="admin-item">
+            <div class="admin-item-thumb">${c.imgUrl?`<img src="${c.imgUrl}" alt="${c.name}">`:'📄'}</div>
+            <div class="admin-item-info">
+              <div class="admin-item-name">${c.name}</div>
+              <div class="admin-item-meta">${c.set} · ${c.lang} · ${rarityLabel[c.rarity]} · $${(c.price||0).toLocaleString('es-AR')} · Stock: ${c.stock}</div>
+            </div>
+            <div class="admin-item-actions">
+              <button class="icon-btn" onclick="editItem('${c.id}','single')" title="Editar">✏</button>
+              <button class="icon-btn del" onclick="deleteItem('${c.id}','single')" title="Eliminar">🗑</button>
+            </div>
+          </div>`).join('')||'<p style="color:var(--muted);font-size:13px;text-align:center;padding:1rem">Sin cartas cargadas aún.</p>'}
+      </div>
+    </div>
+
+    <!-- SEALED LIST -->
+    <div class="admin-section">
+      <div class="admin-section-title">📦 Sellado en catálogo (${sealed.length})</div>
+      <div class="admin-items-list" id="adminSealedList">
+        ${sealed.map(s=>`
+          <div class="admin-item">
+            <div class="admin-item-thumb">${s.imgUrl?`<img src="${s.imgUrl}" alt="${s.name}">`:'📦'}</div>
+            <div class="admin-item-info">
+              <div class="admin-item-name">${s.name}</div>
+              <div class="admin-item-meta">${s.set} · ${s.lang} · $${(s.price||0).toLocaleString('es-AR')} · Stock: ${s.stock}</div>
+            </div>
+            <div class="admin-item-actions">
+              <button class="icon-btn" onclick="editItem('${s.id}','sealed')" title="Editar">✏</button>
+              <button class="icon-btn del" onclick="deleteItem('${s.id}','sealed')" title="Eliminar">🗑</button>
+            </div>
+          </div>`).join('')||'<p style="color:var(--muted);font-size:13px;text-align:center;padding:1rem">Sin sellado cargado aún.</p>'}
+      </div>
+    </div>`;
+}
+
+function toggleAdminFields() {
+  const t = document.getElementById('adminType').value;
+  document.getElementById('singleFields').style.display = t==='single'?'block':'none';
+  document.getElementById('sealedFields').style.display = t==='sealed'?'block':'none';
+}
+
+// ═══════════════════════════════════════════════
+// IMAGE HANDLING
+// ═══════════════════════════════════════════════
+function handleImageFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5*1024*1024) { showToast('La imagen supera los 5MB','error'); return; }
+  uploadedImageName = file.name.replace(/[^a-zA-Z0-9._-]/g,'_').toLowerCase();
+  const reader = new FileReader();
+  reader.onload = e => {
+    uploadedImageData = e.target.result.split(',')[1]; // base64 only
+    const preview = document.getElementById('imgPreview');
+    preview.src = e.target.result;
+    preview.classList.add('show');
+    document.getElementById('aImgUrl').value = '';
+  };
+  reader.readAsDataURL(file);
+}
+
+function previewFromUrl(url) {
+  if (!url) return;
+  const preview = document.getElementById('imgPreview');
+  preview.src = url;
+  preview.classList.add('show');
+  uploadedImageData = null;
+  uploadedImageName = null;
+}
+
+// ═══════════════════════════════════════════════
+// ADD / EDIT / DELETE PRODUCT
+// ═══════════════════════════════════════════════
+function uid() { return Date.now().toString(36)+Math.random().toString(36).slice(2); }
+
+async function addProduct() {
+  const type = document.getElementById('adminType').value;
+  const btn = document.getElementById('addProductBtn');
+  btn.disabled = true;
+  btn.textContent = 'GUARDANDO...';
+
+  // Upload image if file was selected
+  let finalImgUrl = document.getElementById('aImgUrl').value.trim() || '';
+  if (uploadedImageData && uploadedImageName) {
+    showToast('Subiendo imagen...', 'success');
+    const uploaded = await uploadImage(uploadedImageData, uploadedImageName);
+    if (uploaded) finalImgUrl = uploaded;
+    else showToast('No se pudo subir la imagen, se guardará sin foto','error');
+  }
+
+  if (type === 'single') {
+    const name = document.getElementById('aName').value.trim();
+    if (!name) { showToast('Ingresá el nombre de la carta','error'); btn.disabled=false; btn.textContent='AGREGAR AL CATÁLOGO'; return; }
+    const item = {
+      id: editingItem?.type==='single' ? editingItem.id : uid(),
+      name, set:document.getElementById('aSet').value||'—', num:document.getElementById('aNum').value||'—',
+      rarity:document.getElementById('aRarity').value, cat:document.getElementById('aCat').value,
+      lang:document.getElementById('aLang').value, cond:document.getElementById('aCond').value,
+      stock:parseInt(document.getElementById('aStock').value)||0,
+      price:parseInt(document.getElementById('aPrice').value)||0,
+      notes:document.getElementById('aNotes').value, imgUrl:finalImgUrl
+    };
+    if (editingItem?.type==='single') singles = singles.map(x=>x.id===item.id?item:x);
+    else singles.push(item);
+  } else {
+    const name = document.getElementById('sName').value.trim();
+    if (!name) { showToast('Ingresá el nombre del producto','error'); btn.disabled=false; btn.textContent='AGREGAR AL CATÁLOGO'; return; }
+    const item = {
+      id: editingItem?.type==='sealed' ? editingItem.id : uid(),
+      name, set:document.getElementById('sSet').value||'—', type:document.getElementById('sType').value,
+      lang:document.getElementById('sLang').value, stock:parseInt(document.getElementById('sStock').value)||0,
+      price:parseInt(document.getElementById('sPrice').value)||0,
+      desc:document.getElementById('sDesc').value, imgUrl:finalImgUrl
+    };
+    if (editingItem?.type==='sealed') sealed = sealed.map(x=>x.id===item.id?item:x);
+    else sealed.push(item);
+  }
+
+  const ok = await saveInventory(editingItem ? `Editar: ${editingItem.name}` : `Agregar: ${type}`);
+  if (ok) {
+    renderSingles(); renderSealed();
+    editingItem = null; uploadedImageData = null; uploadedImageName = null;
+    renderAdminPanel();
+  }
+  btn.disabled=false; btn.textContent='AGREGAR AL CATÁLOGO';
+}
+
+function editItem(id, type) {
+  const item = type==='single' ? singles.find(x=>x.id===id) : sealed.find(x=>x.id===id);
+  if (!item) return;
+  editingItem = {...item, type};
+  // Switch type selector
+  document.getElementById('adminType').value = type;
+  toggleAdminFields();
+  if (type==='single') {
+    document.getElementById('aName').value = item.name||'';
+    document.getElementById('aSet').value = item.set||'';
+    document.getElementById('aNum').value = item.num||'';
+    document.getElementById('aRarity').value = item.rarity||'common';
+    document.getElementById('aCat').value = item.cat||'all';
+    document.getElementById('aLang').value = item.lang||'JPN';
+    document.getElementById('aCond').value = item.cond||'NM';
+    document.getElementById('aStock').value = item.stock||0;
+    document.getElementById('aPrice').value = item.price||0;
+    document.getElementById('aNotes').value = item.notes||'';
+  } else {
+    document.getElementById('sName').value = item.name||'';
+    document.getElementById('sSet').value = item.set||'';
+    document.getElementById('sType').value = item.type||'booster';
+    document.getElementById('sLang').value = item.lang||'JPN';
+    document.getElementById('sStock').value = item.stock||0;
+    document.getElementById('sPrice').value = item.price||0;
+    document.getElementById('sDesc').value = item.desc||'';
+  }
+  if (item.imgUrl) {
+    document.getElementById('aImgUrl').value = item.imgUrl;
+    const prev = document.getElementById('imgPreview');
+    prev.src = item.imgUrl; prev.classList.add('show');
+  }
+  document.getElementById('addProductBtn').textContent = 'GUARDAR CAMBIOS';
+  document.getElementById('cancelEditBtn').style.display = 'inline-flex';
+  document.querySelector('.admin-section:nth-child(2)').scrollIntoView({behavior:'smooth'});
+}
+
+function cancelEdit() {
+  editingItem = null;
+  document.getElementById('addProductBtn').textContent = 'AGREGAR AL CATÁLOGO';
+  document.getElementById('cancelEditBtn').style.display = 'none';
+}
+
+async function deleteItem(id, type) {
+  if (!confirm('¿Eliminar este producto del catálogo?')) return;
+  if (type==='single') singles = singles.filter(x=>x.id!==id);
+  else sealed = sealed.filter(x=>x.id!==id);
+  const ok = await saveInventory(`Eliminar producto`);
+  if (ok) { renderSingles(); renderSealed(); renderAdminPanel(); }
+}
+
+// ═══════════════════════════════════════════════
+// TOKEN
+// ═══════════════════════════════════════════════
+function saveToken() {
+  const t = document.getElementById('tokenInput')?.value.trim();
+  if (!t || !t.startsWith('ghp_')) { showToast('El token debe comenzar con ghp_','error'); return; }
+  githubToken = t;
+  localStorage.setItem('ps_gh_token', t);
+  showToast('✓ Token guardado en tu navegador','success');
+  renderAdminPanel();
+  loadInventory();
+}
+function clearToken() {
+  if (!confirm('¿Eliminar el token guardado?')) return;
+  githubToken = '';
+  localStorage.removeItem('ps_gh_token');
+  renderAdminPanel();
+}
+
+// ═══════════════════════════════════════════════
+// MODALS
+// ═══════════════════════════════════════════════
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-backdrop').forEach(m => {
+  m.addEventListener('click', function(e) { if(e.target===this) this.classList.remove('open'); });
+});
+
+// ═══════════════════════════════════════════════
+// UI HELPERS
+// ═══════════════════════════════════════════════
+function showLoading(on) {
+  const bar = document.getElementById('loadingBar');
+  bar.style.width = on ? '70%' : '100%';
+  if (!on) setTimeout(()=>bar.style.width='0%',300);
+}
+
+let toastTimer;
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = `toast ${type} show`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+document.getElementById('loadingMsg').style.display = 'block';
+loadInventory();
+renderCart();
+</script>
+</body>
+</html>
