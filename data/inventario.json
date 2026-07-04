@@ -1,1 +1,19 @@
-{"singles":[],"sealed":[]}
+{
+  "singles": [
+    {
+      "id": "mr5t3lpm4rdye6izjac",
+      "name": "Totodile",
+      "set": "—",
+      "num": "048/104",
+      "rarity": "common",
+      "cat": "full-art",
+      "lang": "ENG",
+      "cond": "NM",
+      "stock": 2,
+      "price": 85000,
+      "notes": "",
+      "imgUrl": "https://raw.githubusercontent.com/SeshomaruFlor/pokemonsesho/main/imagenes/totodile_048_promo.jpg"
+    }
+  ],
+  "sealed": []
+}
